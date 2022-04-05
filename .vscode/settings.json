@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "server.h": "c",
+        "types.h": "c",
+        "https.h": "c",
+        "resp.h": "c",
+        "contexttype.h": "c",
+        "service.h": "c",
+        "malloc.h": "c",
+        "stdio.h": "c"
+    }
+}
