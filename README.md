@@ -26,7 +26,7 @@ int main(int argc, char const *argv[])
 
 **#include“include/service.h"**
 
-**  void insert(char* path,void* function,char* type,int file_type)   **
+ void insert(char* path,void* function,char* type,int file_type) 
 
 
 
