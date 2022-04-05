@@ -23,3 +23,17 @@ int main(int argc, char const *argv[])
     return 0;
 }
 ```
+
+**#include“include/service.h"**
+
+**void insert(char* path,void* function,char* type,int file_type)**
+
+
+
+- path:     虚拟路径
+- function:   服务函数
+- type: 文件类型
+- file_type:  文件属性，1--->WEB下的时普通文件    0----->json文件 
+  - FILE_RESP 1
+  - TEXT_RESP 0
+
