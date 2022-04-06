@@ -17,6 +17,9 @@ void messge_handle(char *buf,int fd){
 
     get_http_head(&req_head,head_information);
 
+    if(strcmp(req_head.method,"POST")==0){
+        strcpy(req_head.message,list->next->message);
+    }
 
     /**
      * 业务
@@ -40,6 +43,7 @@ void messge_handle(char *buf,int fd){
             (*function_point)(fd,func->path);
             memset(resp_buf,0,sizeof(resp_buf));
         }else{
+            strcpy(resp_buf,req_head.message);
             void (*function_point)()=func->func;
             (*function_point)(resp_buf);
             write(fd,resp_buf,strlen(resp_buf));

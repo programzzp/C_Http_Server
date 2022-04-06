@@ -17,6 +17,11 @@ void insert(char* path,void* function,char* type,int file_type){
     }
 }
 
+
+/**
+ * fd  :文件描述符 
+ * path:请求路径
+ * */
 void read_file(int fd,char* path){
     int file_fd;
     char path_file[0xff];
@@ -25,6 +30,9 @@ void read_file(int fd,char* path){
     strcat(path_file,path);
 
     file_fd=open(path_file,O_RDONLY);
+    if(file_fd==-1){
+        return;
+    }
     int n=0;
     while((n=read(file_fd,buf,1024))!=0){
         write(fd,buf,n);
