@@ -90,12 +90,61 @@ static void get_file_type(char* file_name,char* type_name){
 
     *type_name='\0';
 }
+
+void test_request_data_parse(char* message,char (*data)[0xff]){
+   char buf[0xff];
+   int index=0;
+
+   char message_data[0xff];
+   strcpy(buf,message);
+
+   char* str=buf;
+   char* data_str;
+
+   char *p;
+
+   start:
+
+   data_str=message_data;
+
+   while(*str!='='){
+       ++str;
+   }
+   ++str;
+
+   while(*str!='&'){
+       if(*str=='\0'){
+           break;
+       }
+       *data_str=*str;
+
+       ++data_str;
+       ++str;
+   }
+
+   *data_str='\0';
+
+   p=data[index];
+
+   strcpy(p,message_data);
+   ++index;
+   memset(message_data,0,strlen(message_data)+1);
+   if(*str=='&'){
+       ++str;
+       goto start;
+   }
+}
+
 int main(int argc, char const *argv[])
 {
-    char *name="index.html";
-    char buf[0xf];
-    get_file_type(name,buf);
 
-    printf("buf=%s\n",buf);
+    char buf[0xff];
+    char *data="user=zhou&pass=123123213213";
+
+    sprintf(buf,"this idf %s od %d\n","123",123);
+
+    printf("%s",buf);
+
+
     return 0;
 }

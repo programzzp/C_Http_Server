@@ -31,4 +31,7 @@ void get_file_name_init();
 
 void read_file(int fd,char* path);
 
+
+void request_data_parse(char* message,char (*data)[0xff]);
+
 #endif

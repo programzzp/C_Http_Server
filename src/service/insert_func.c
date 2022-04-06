@@ -85,3 +85,49 @@ void get_file_name_init(){
         }
     }
 }
+
+//请求数据解析
+void request_data_parse(char* message,char (*data)[0xff]){
+   char buf[0xff];
+   int index=0;
+
+   char message_data[0xff];
+   strcpy(buf,message);
+
+   char* str=buf;
+   char* data_str;
+
+   char *p;
+
+   start:
+
+   data_str=message_data;
+
+   while(*str!='='){
+       ++str;
+   }
+   ++str;
+
+   while(*str!='&'){
+       if(*str=='\0'){
+           break;
+       }
+       *data_str=*str;
+
+       ++data_str;
+       ++str;
+   }
+
+   *data_str='\0';
+
+   p=data[index];
+
+   strcpy(p,message_data);
+   ++index;
+   memset(message_data,0,strlen(message_data)+1);
+   if(*str=='&'){
+       ++str;
+       goto start;
+   }
+}
+

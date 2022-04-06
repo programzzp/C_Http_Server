@@ -4,7 +4,6 @@
 
 void get_pass(void* buf){
     char* bufs=(void*)buf;
-    printf("\033[31m%s\n\033[0m",bufs);
     memset(bufs,0,strlen(bufs)+2);
     char data[]="{\"password\":\"2191142854\",\"username\":\"2191142854\"}";
     strcpy(bufs,data);
@@ -13,10 +12,13 @@ void get_pass(void* buf){
 
 void get_user(void* buf){
     char* bufs=(void*)buf;
-    printf("\033[31m%s\n\033[0m",bufs);
+    char message[2][0xff];
+    request_data_parse(bufs,message);
     memset(bufs,0,strlen(bufs)+2);
-    char data[]="{\"password\":\"fsdfdsfsdf\",\"username\":\"sdfsdf\"}";
+    char data[0xff];
+    sprintf(data,"{\"password\":\"%s\",\"username\":\"%s\"}",message[0],message[1]);
     strcpy(bufs,data);
+    memset(message,0,sizeof(message));
 }
 
 
