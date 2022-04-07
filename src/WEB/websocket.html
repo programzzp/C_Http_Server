@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+    <h1 id="message"></h1>
+    <input type="text" id="input">
+    <button id="button">按钮</button>
+    <div id="meaage">
+
+    </div>
+    <script>
+
+        var Message={
+            toName:'',
+            message:'',
+            fromName:''
+        }
+        $(function(){
+            let websocket = new WebSocket('ws://127.0.0.1:8080/webSocket/' + 'username');
+
+            websocket.onopen=function(){
+                console.log('start');
+            }
+
+            $('#button').click(function(){
+                var ma=$('#input').val();
+                $('#message').html(ma);
+                Message.toName='zhouzhanpei';
+                Message.message=ma;
+                Message.fromName='username';
+                var json=JSON.stringify(Message);
+                websocket.send(json);
+            });
+
+            websocket.onmessage=function(data){
+                $('#meaage').html(data.data);
+            }
+        });
+
+
+    </script>
+	<script>
+    /*https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json*/
+    L2Dwidget.init({ "model": { jsonPath:
+                "https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json",
+            "scale": 1 }, "display": { "position": "right", "width": 110, "height": 150,
+            "hOffset": 0, "vOffset": -20 }, "mobile": { "show": true, "scale": 0.5 },
+        "react": { "opacityDefault": 0.8, "opacityOnHover": 0.1 } });
+</script>
+</body>
+</html>

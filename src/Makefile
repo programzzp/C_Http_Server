@@ -17,6 +17,11 @@ SERVICE=$(wildcard ./service/*.c)
 SERVICE_BUILD=$(patsubst ./service/%.c,./build/%.o,$(SERVICE))
 
 
+WEBSOCKET=$(wildcard ./websocketserver/*.c)
+WEBSOCKET_BUILD=$(patsubst ./websocketserver/%.c,./build/%.o,$(WEBSOCKET))
+
+
+
 
 BUILD:=./build
 INIT_SRC:=./init
@@ -24,6 +29,7 @@ SERVER_SRC:=./server
 REQUST_SRC:=./requst
 RESP_SRC:=./response
 SERVICE_SRC:=./service
+WEBSOCKET_SRC:=./websocketserver
 
 
 INCLUDE:=-I./
@@ -39,7 +45,9 @@ BIN:=$(BUILD)/main.o \
 	$(BUILD)/get_http_head.o \
 	$(BUILD)/link_list.o \
 	$(BUILD)/resp.o \
-	$(BUILD)/insert_func.o
+	$(BUILD)/insert_func.o \
+	$(BUILD)/base64.o \
+	$(BUILD)/sha1.o
 
 main:$(BIN)
 	$(CC) $^ -o $@
@@ -58,6 +66,9 @@ $(RESP_BUILD):$(BUILD)/%.o:$(RESP_SRC)/%.c
 	$(CC) -c $< -o $@ $(INCLUDE)
 
 $(SERVICE_BUILD):$(BUILD)/%.o:$(SERVICE_SRC)/%.c
+	$(CC) -c $< -o $@ $(INCLUDE)
+
+$(WEBSOCKET_BUILD):$(BUILD)/%.o:$(WEBSOCKET_SRC)/%.c
 	$(CC) -c $< -o $@ $(INCLUDE)
 
 

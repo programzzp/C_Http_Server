@@ -9,15 +9,30 @@ void messge_handle(char *buf,int fd){
     char resp_buf[0xfff];
 
     Service_func* func=NULL;
+
+    //获取请求头后的数据
     RequstList* list=(RequstList*)malloc(sizeof(RequstList));
+
+    // struct requst_head{
+    //     char method[255];
+    //     char url[1024];
+    //     char version[255];
+    //     char message[255];
+    // };
+    //获取请求头信息
     RequstHead req_head;
+    
+    //请求函数队列
     Service_func* node=function_head_;
+
+
     char head_information[255];
     split_requst(buf,head_information,list);
 
     get_http_head(&req_head,head_information);
 
     if(strcmp(req_head.method,"POST")==0){
+        
         strcpy(req_head.message,list->next->message);
     }
 
@@ -61,6 +76,9 @@ void messge_handle(char *buf,int fd){
     memset(req_head.url,0,sizeof(req_head.url));
     memset(req_head.version,0,sizeof(req_head.version));
     memset(head_information,0,sizeof(head_information));
+
+    func=NULL;
+    list=NULL;
     free(list);
     
 }
